@@ -11,10 +11,13 @@ import java.util.List;
 
 @Service
 public class UserServiceImp implements UserService {
-   @Autowired
-   private SessionFactory sessionFactory;
-   @Autowired
-   private UserDao userDao;
+   private final SessionFactory sessionFactory;
+   private final UserDao userDao;
+
+   public UserServiceImp(SessionFactory sessionFactory, UserDao userDao) {
+      this.sessionFactory = sessionFactory;
+      this.userDao = userDao;
+   }
 
    @Transactional
    @Override
