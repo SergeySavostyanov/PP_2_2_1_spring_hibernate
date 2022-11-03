@@ -1,7 +1,9 @@
 package hiber;
 
 import hiber.config.AppConfig;
+import hiber.model.Car;
 import hiber.model.User;
+import hiber.service.CarService;
 import hiber.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -10,15 +12,27 @@ import java.util.List;
 
 public class MainApp {
    public static void main(String[] args) throws SQLException {
-      AnnotationConfigApplicationContext context = 
+      AnnotationConfigApplicationContext context =
             new AnnotationConfigApplicationContext(AppConfig.class);
 
       UserService userService = context.getBean(UserService.class);
 
-      userService.add(new User("User1", "Lastname1", "user1@mail.ru"));
-      userService.add(new User("User2", "Lastname2", "user2@mail.ru"));
-      userService.add(new User("User3", "Lastname3", "user3@mail.ru"));
-      userService.add(new User("User4", "Lastname4", "user4@mail.ru"));
+      User user1 = (new User("User1", "Lastname1", "user1@mail.ru"));
+      Car car1 = new Car("model1",1);
+      user1.setEmpCar(car1);
+      userService.add(user1);
+
+      User user2 = (new User("User2", "Lastname2", "user2@mail.ru"));
+      user2.setEmpCar(new Car("model2",2));
+      userService.add(user2);
+
+      User user3 = (new User("User3", "Lastname3", "user3@mail.ru"));
+      user3.setEmpCar(new Car("model3",3));
+      userService.add(user3);
+
+      User user4 = (new User("User4", "Lastname4", "user4@mail.ru"));
+      user4.setEmpCar(new Car("model4",4));
+      userService.add(user4);
 
       List<User> users = userService.listUsers();
       for (User user : users) {

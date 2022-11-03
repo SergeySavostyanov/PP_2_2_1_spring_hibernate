@@ -1,5 +1,7 @@
 package hiber.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,7 +21,10 @@ public class User {
    @Column(name = "email")
    private String email;
 
-   public User() {}
+
+   public User(){
+
+   }
    
    public User(String firstName, String lastName, String email) {
       this.firstName = firstName;
@@ -57,5 +62,17 @@ public class User {
 
    public void setEmail(String email) {
       this.email = email;
+   }
+
+   @OneToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name = "car_id")
+   private Car empCar;
+
+   public Car getEmpCar() {
+      return empCar;
+   }
+
+   public void setEmpCar(Car empCar) {
+      this.empCar = empCar;
    }
 }
